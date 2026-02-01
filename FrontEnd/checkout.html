@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopLite — Checkout</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <script defer src="js/auth.js"></script>
+  <script defer src="js/app.js"></script>
+</head>
+<body>
+  <header class="header">
+    <a class="logo" href="index.html">ShopLite</a>
+    <nav class="menu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cart.html" id="cartLink">Cart (<span id="cartCount">0</span>)</a></li>
+        <li><a href="orders.html">My Orders</a></li>
+        <li><a href="#" onclick="logout()" id="userLink">Sign Out</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Checkout</h1>
+    
+    <!-- Order Summary -->
+    <div id="orderSummary" class="checkout-summary">
+      <h2>Order Summary</h2>
+      <div id="orderItems" class="order-items">
+        <!-- Items will be dynamically inserted here -->
+      </div>
+      <div class="order-total">
+        <strong>Total: <span id="cartTotal">R0.00</span></strong>
+      </div>
+    </div>
+
+    <!-- Shipping Form -->
+    <form id="checkoutForm" class="checkout-form" novalidate>
+      <h2>Shipping Information</h2>
+      
+      <div class="form-group">
+        <label for="checkoutName">Full Name *</label>
+        <input type="text" id="checkoutName" name="checkoutName" required aria-required="true" placeholder="Your full name"/>
+      </div>
+      
+      <div class="form-group">
+        <label for="checkoutEmail">Email *</label>
+        <input type="email" id="checkoutEmail" name="checkoutEmail" required aria-required="true" placeholder="your.email@example.com"/>
+      </div>
+      
+      <div class="form-group">
+        <label for="checkoutPhone">Phone Number</label>
+        <input type="tel" id="checkoutPhone" name="checkoutPhone" placeholder="(123) 456-7890"/>
+      </div>
+      
+      <div class="form-group">
+        <label for="checkoutAddress">Shipping Address *</label>
+        <input type="text" id="checkoutAddress" name="checkoutAddress" required aria-required="true" placeholder="123 Main Street"/>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="checkoutCity">City *</label>
+          <input type="text" id="checkoutCity" name="checkoutCity" required aria-required="true" placeholder="City"/>
+        </div>
+        
+        <div class="form-group">
+          <label for="checkoutPostalCode">Postal Code *</label>
+          <input type="text" id="checkoutPostalCode" name="checkoutPostalCode" required aria-required="true" placeholder="12345"/>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <a href="cart.html" class="btn secondary">Back to Cart</a>
+        <button type="submit" class="btn primary" id="placeOrderBtn">Place Order</button>
+      </div>
+    </form>
+
+    <!-- Order Confirmation -->
+    <div id="orderConfirmation" class="order-confirmation hidden"></div>
+    
+    <!-- Empty Cart Message -->
+    <div id="emptyCartMessage" class="empty-cart-message hidden">
+      <h2>Your cart is empty</h2>
+      <p>Add some products to your cart before checking out.</p>
+      <a href="index.html" class="btn primary">Continue Shopping</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 ShopLite.</p>
+  </footer>
+  
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <style>
+    /* Additional styles for checkout page */
+    .checkout-summary {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 30px;
+      border: 1px solid #dee2e6;
+    }
+    
+    .checkout-summary h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #333;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+    }
+    
+    .order-items {
+      margin-bottom: 20px;
+    }
+    
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .order-item:last-child {
+      border-bottom: none;
+    }
+    
+    .order-total {
+      text-align: right;
+      font-size: 1.2em;
+      padding-top: 15px;
+      border-top: 2px solid #333;
+    }
+    
+    .checkout-form {
+      background: white;
+      border-radius: 8px;
+      padding: 25px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+    
+    .checkout-form h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #555;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    
+    .form-group input:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+    
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+    
+    .btn.primary {
+      background-color: #007bff;
+      color: white;
+    }
+    
+    .btn.primary:hover {
+      background-color: #0056b3;
+    }
+    
+    .btn.secondary {
+      background-color: #6c757d;
+      color: white;
+    }
+    
+    .btn.secondary:hover {
+      background-color: #545b62;
+    }
+    
+    .order-confirmation {
+      background: #d4edda;
+      color: #155724;
+      padding: 25px;
+      border-radius: 8px;
+      margin-top: 30px;
+      text-align: center;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .order-confirmation h2 {
+      color: #155724;
+      margin-top: 0;
+    }
+    
+    .empty-cart-message {
+      text-align: center;
+      padding: 50px 20px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      margin-top: 30px;
+    }
+    
+    .empty-cart-message h2 {
+      color: #6c757d;
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+    
+    .muted {
+      color: #6c757d;
+      font-style: italic;
+    }
+    
+    /* Toast styles */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+    
+    .toast {
+      padding: 15px 20px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      color: white;
+      animation: slideIn 0.3s ease;
+    }
+    
+    .toast.success {
+      background-color: #28a745;
+    }
+    
+    .toast.danger {
+      background-color: #dc3545;
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+  </style>
+</body>
+</html>

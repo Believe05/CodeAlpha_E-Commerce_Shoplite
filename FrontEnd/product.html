@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopLite — Product</title>
+  <link rel="stylesheet" href="styles.css"/>
+  
+  <!-- Correct script loading order -->
+  <script defer src="js/app.js"></script>
+  <script defer src="js/auth.js"></script>
+  <script defer src="js/data.js"></script>
+  <script defer src="js/orders.js"></script>
+</head>
+<body>
+  <!-- Menu bar -->
+  <header class="header">
+    <a class="logo" href="index.html">ShopLite</a>
+    <nav class="menu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cart.html" id="cartLink">Cart (0)</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="login.html" id="userLink">Sign In</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Product detail -->
+  <main class="container">
+    <!-- In product.html, update the product-detail section to show an actual product -->
+<div id="productDetail" class="product-detail">
+  <div class="product-image-container">
+    <img id="productMainImage" src="images/Mac4.jpg" 
+         alt="MacBook Air M2"
+         class="product-main-image"
+         onerror="this.onerror=null; this.src='https://via.placeholder.com/500x400?text=Image+Not+Found'">
+  </div>
+  <div class="product-info">
+    <h1 id="productName">MacBook Air M2</h1>
+    <div id="productBrand" class="product-brand">Apple</div>
+    <div id="productPrice" class="product-price">R28,999.00</div>
+    <div class="product-rating">
+      <span id="productStars" class="stars">⭐⭐⭐⭐⭐</span>
+      <span id="productRating" class="rating-value">4.8/5.0</span>
+    </div>
+    <div class="product-description">
+      <p id="productDescription">M2 chip, 8GB RAM, 256GB SSD. Whisper-quiet, lightweight, and reliable for dev workflows.</p>
+    </div>
+    <div class="product-specs">
+      <div class="spec-item">
+        <span class="spec-label">Category:</span>
+        <span id="productCategory" class="spec-value">Laptop</span>
+      </div>
+      <div class="spec-item">
+        <span class="spec-label">Availability:</span>
+        <span id="productStock" class="spec-value" style="color:#28a745;">In Stock (5 available)</span>
+      </div>
+      <div class="spec-item">
+        <span class="spec-label">Brand:</span>
+        <span id="productBrandDetail" class="spec-value">Apple</span>
+      </div>
+      <div class="spec-item">
+        <span class="spec-label">Product ID:</span>
+        <span id="productId" class="spec-value">lap-777</span>
+      </div>
+    </div>
+    <div class="product-actions">
+      <div class="quantity-selector">
+        <button class="quantity-btn" onclick="updateProductQuantity(-1)">-</button>
+        <input type="number" id="productQuantity" class="quantity-input" value="1" min="1" max="5">
+        <button class="quantity-btn" onclick="updateProductQuantity(1)">+</button>
+      </div>
+      <button id="addToCartBtn" class="btn primary btn-large" onclick="addProductToCart()">
+        Add to Cart
+      </button>
+    </div>
+  </div>
+</div>
+    
+    <!-- Related Products Section -->
+<section id="relatedProducts" class="related-products">
+  <h2>You Might Also Like</h2>
+  <div id="relatedProductsGrid" class="related-grid">
+    <!-- Show actual related products immediately -->
+    <a href="product.html?id=lap-001" class="related-product-card">
+      <img src="images/asus2.jpg" 
+           alt="ASUS ZenBook Pro 15"
+           class="related-product-image"
+           onerror="this.onerror=null; this.src='https://via.placeholder.com/250x180?text=Image+Not+Found'">
+      <div class="related-product-info">
+        <h3 class="related-product-name">ASUS ZenBook Pro 15</h3>
+        <div class="related-product-price">R24,999.00</div>
+      </div>
+    </a>
+    <a href="product.html?id=hdp-501" class="related-product-card">
+      <img src="images/headphones3.jpg" 
+           alt="Bose QuietComfort Ultra"
+           class="related-product-image"
+           onerror="this.onerror=null; this.src='https://via.placeholder.com/250x180?text=Image+Not+Found'">
+      <div class="related-product-info">
+        <h3 class="related-product-name">Bose QuietComfort Ultra</h3>
+        <div class="related-product-price">R6,999.00</div>
+      </div>
+    </a>
+    <a href="product.html?id=phn-101" class="related-product-card">
+      <img src="images/camera1.jpg" 
+           alt="Google Pixel 8 Pro"
+           class="related-product-image"
+           onerror="this.onerror=null; this.src='https://via.placeholder.com/250x180?text=Image+Not+Found'">
+      <div class="related-product-info">
+        <h3 class="related-product-name">Google Pixel 8 Pro</h3>
+        <div class="related-product-price">R19,999.00</div>
+      </div>
+    </a>
+    <a href="product.html?id=acc-220" class="related-product-card">
+      <img src="images/mouse1.jpg" 
+           alt="Logitech MX Master 3S"
+           class="related-product-image"
+           onerror="this.onerror=null; this.src='https://via.placeholder.com/250x180?text=Image+Not+Found'">
+      <div class="related-product-info">
+        <h3 class="related-product-name">Logitech MX Master 3S</h3>
+        <div class="related-product-price">R1,799.00</div>
+      </div>
+    </a>
+  </div>
+</section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>© 2026 ShopLite. All rights reserved.</p>
+      <p><a href="index.html">Home</a> | <a href="cart.html">Cart</a> | <a href="login.html">Account</a></p>
+    </div>
+  </footer>
+  
+  <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <style>
+    /* Product detail specific styles */
+    .product-detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+    
+    @media (max-width: 768px) {
+      .product-detail {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .product-image-container {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .product-main-image {
+      width: 100%;
+      height: 400px;
+      object-fit: contain;
+      display: block;
+    }
+    
+    .product-info {
+      padding: 20px;
+    }
+    
+    .product-info h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    
+    .product-brand {
+      font-size: 1.1rem;
+      color: #007bff;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    
+    .product-price {
+      font-size: 2rem;
+      color: #28a745;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .stars {
+      color: #ffc107;
+      font-size: 1.2rem;
+    }
+    
+    .rating-value {
+      color: #666;
+      font-weight: 600;
+    }
+    
+    .product-description {
+      margin-bottom: 30px;
+      line-height: 1.6;
+      color: #555;
+    }
+    
+    .product-specs {
+      margin-bottom: 30px;
+    }
+    
+    .spec-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .spec-label {
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .spec-value {
+      color: #666;
+    }
+    
+    .product-actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .quantity-btn {
+      width: 40px;
+      height: 40px;
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    
+    .quantity-btn:hover {
+      background: #f8f9fa;
+    }
+    
+    .quantity-input {
+      width: 60px;
+      height: 40px;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    
+    .btn-large {
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      flex-grow: 1;
+    }
+    
+    .not-found {
+      text-align: center;
+      padding: 60px 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .not-found h2 {
+      color: #dc3545;
+      margin-bottom: 20px;
+    }
+    
+    .loading-product {
+      text-align: center;
+      padding: 60px;
+      grid-column: 1 / -1;
+      color: #666;
+      font-style: italic;
+    }
+    
+    /* Related Products */
+    .related-products {
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 2px solid #f0f0f0;
+    }
+    
+    .related-products h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+    
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 25px;
+    }
+    
+    .related-product-card {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .related-product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .related-product-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    
+    .related-product-info {
+      padding: 15px;
+    }
+    
+    .related-product-name {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: #333;
+    }
+    
+    .related-product-price {
+      color: #28a745;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    
+    /* Footer */
+    .footer-content {
+      text-align: center;
+      padding: 30px 20px;
+      border-top: 1px solid #dee2e6;
+    }
+    
+    .footer-content p {
+      margin: 10px 0;
+      color: #666;
+    }
+    
+    .footer-content a {
+      color: #007bff;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    
+    .footer-content a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Toast */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+    
+    .toast {
+      padding: 15px 20px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      color: white;
+      animation: slideIn 0.3s ease;
+    }
+    
+    .toast.success {
+      background-color: #28a745;
+    }
+    
+    .toast.danger {
+      background-color: #dc3545;
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+    
+    .muted {
+      color: #6c757d;
+    }
+    
+    /* Button styles */
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-align: center;
+    }
+    
+    .btn.primary {
+      background: #007bff;
+    }
+    
+    .btn.primary:hover {
+      background: #0056b3;
+    }
+    
+    .btn.secondary {
+      background: #6c757d;
+    }
+    
+    .btn.secondary:hover {
+      background: #545b62;
+    }
+    
+    .btn.danger {
+      background: #dc3545;
+    }
+    
+    .btn.danger:hover {
+      background: #c82333;
+    }
+  </style>
+</body>
+</html>

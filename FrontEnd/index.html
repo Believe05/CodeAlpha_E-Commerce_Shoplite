@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopLite — Home</title>
+  <link rel="stylesheet" href="styles.css"/>
+  
+  <!-- Correct script loading order -->
+  <script defer src="js/app.js"></script>
+  <script defer src="js/auth.js"></script>
+  <script defer src="js/data.js"></script>
+  <script defer src="js/orders.js"></script>
+</head>
+<body>
+  <!-- Header with menu bar -->
+  <header class="header">
+    <a class="logo" href="index.html">ShopLite</a>
+    <nav class="menu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cart.html" id="cartLink">Cart (0)</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="login.html" id="userLink">Sign In</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main content -->
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Welcome to ShopLite</h1>
+        <p>Discover amazing tech products at great prices</p>
+        <a href="#featured-products" class="btn primary">Shop Now</a>
+      </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="categories">
+      <h2>Shop by Category</h2>
+      <div class="category-grid">
+        <a href="index.html?category=Laptop" class="category-card">
+          <div class="category-icon">💻</div>
+          <h3>Laptops</h3>
+          <p>Powerful machines for work & play</p>
+        </a>
+        <a href="index.html?category=Smartphone" class="category-card">
+          <div class="category-icon">📱</div>
+          <h3>Smartphones</h3>
+          <p>Latest mobile technology</p>
+        </a>
+        <a href="index.html?category=Headphones" class="category-card">
+          <div class="category-icon">🎧</div>
+          <h3>Headphones</h3>
+          <p>Premium audio experience</p>
+        </a>
+        <a href="index.html?category=Accessory" class="category-card">
+          <div class="category-icon">🖱️</div>
+          <h3>Accessories</h3>
+          <p>Essential tech accessories</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters-section">
+      <h2>Browse Products</h2>
+      <div class="filters">
+        <div class="filter-row">
+          <div class="filter-group">
+            <label for="categorySelect">Category</label>
+            <select id="categorySelect">
+              <option value="">All Categories</option>
+              <option value="Laptop">Laptops</option>
+              <option value="Smartphone">Smartphones</option>
+              <option value="Headphones">Headphones</option>
+              <option value="Accessory">Accessories</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="brandSelect">Brand</label>
+            <select id="brandSelect">
+              <option value="">All Brands</option>
+              <option value="ASUS">ASUS</option>
+              <option value="Google">Google</option>
+              <option value="Bose">Bose</option>
+              <option value="Apple">Apple</option>
+              <option value="Logitech">Logitech</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="sortSelect">Sort By</label>
+            <select id="sortSelect">
+              <option value="relevance">Relevance</option>
+              <option value="priceAsc">Price: Low to High</option>
+              <option value="priceDesc">Price: High to Low</option>
+              <option value="ratingDesc">Rating: High to Low</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section id="featured-products" class="products-section">
+      <h2 class="sr-only">Featured Products</h2>
+      <div id="productGrid" class="grid" role="list">
+        <!-- Products will be loaded dynamically here -->
+        <div class="loading-products">
+          <p>Loading products...</p>
+          
+  {
+    id: "lap-001",
+    name: "ZenBook Pro 15",
+    brand: "ASUS",
+    price: 24999.00,
+    image: "images/asus2.jpg",  // Changed from laptop1.jpg to asus2.jpg
+    short: "Slim powerhouse for devs and creators.",
+    description: "Intel i7, 16GB RAM, 1TB SSD, RTX 4060. Perfect for coding, content creation, and multitasking.",
+    rating: 4.6,
+    stock: 8,
+    category: "Laptop"
+  },
+  {
+    id: "phn-101",
+    name: "Pixel 8 Pro",
+    brand: "Google",
+    price: 19999.00,
+    image: "images/camera1.jpg",  // Changed from phone1.jpg to camera1.jpg
+    short: "Flagship camera and clean Android.",
+    description: "Pro-grade camera, Tensor chip, 120Hz display. Snappy, secure, and built for everyday brilliance.",
+    rating: 4.7,
+    stock: 12,
+    category: "Smartphone"
+  },
+  {
+    id: "hdp-501",
+    name: "QuietComfort Ultra",
+    brand: "Bose",
+    price: 6999.00,
+    image: "images/headphones3.jpg",  // Correct - headphones3.jpg
+    short: "Noise-cancelling comfort for long focus.",
+    description: "Adaptive noise cancellation, spatial audio, 24h battery. Ideal for study, travel, and deep work.",
+    rating: 4.5,
+    stock: 20,
+    category: "Headphones"
+  },
+  {
+    id: "lap-777",
+    name: "MacBook Air M2",
+    brand: "Apple",
+    price: 28999.00,
+    image: "images/Mac4.jpg",  // Changed from laptop2.jpg to Mac4.jpg
+    short: "Effortless performance and battery life.",
+    description: "M2 chip, 8GB RAM, 256GB SSD. Whisper-quiet, lightweight, and reliable for dev workflows.",
+    rating: 4.8,
+    stock: 5,
+    category: "Laptop"
+  },
+  {
+    id: "acc-220",
+    name: "MX Master 3S",
+    brand: "Logitech",
+    price: 1799.00,
+    image: "images/mouse1.jpg",  // This one is correct
+    short: "Ergonomic precision mouse.",
+    description: "Silent clicks, MagSpeed wheel, multi-device. Great for coding and design.",
+    rating: 4.6,
+    stock: 25,
+    category: "Accessory"
+  }
+
+        </div>
+      </div>
+      <p id="emptyState" class="muted hidden">No products match your filters.</p>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="features">
+      <h2>Why Choose ShopLite?</h2>
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon">🚚</div>
+          <h3>Free Shipping</h3>
+          <p>Free delivery on orders over R500</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🔄</div>
+          <h3>30-Day Returns</h3>
+          <p>Hassle-free returns within 30 days</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🔒</div>
+          <h3>Secure Payment</h3>
+          <p>100% secure payment processing</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">📞</div>
+          <h3>24/7 Support</h3>
+          <p>Round-the-clock customer support</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>ShopLite</h3>
+        <p>Your one-stop shop for all tech needs.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="cart.html">Cart</a></li>
+          <li><a href="orders.html">My Orders</a></li>
+          <li><a href="login.html">Account</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <p>Email: support@shoplite.com</p>
+        <p>Phone: (021) 123-4567</p>
+      </div>
+    </div>
+    <p class="copyright">© 2026 ShopLite. All rights reserved.</p>
+  </footer>
+  
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <style>
+    /* Additional styles for index page */
+    .hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      border-radius: 10px;
+      margin-bottom: 40px;
+    }
+    
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+      opacity: 0.9;
+    }
+    
+    .categories {
+      margin-bottom: 40px;
+    }
+    
+    .categories h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+    
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .category-card {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      text-align: center;
+      text-decoration: none;
+      color: #333;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .category-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    
+    .category-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+    
+    .category-card h3 {
+      margin-bottom: 10px;
+      color: #007bff;
+    }
+    
+    .category-card p {
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    .filters-section {
+      margin-bottom: 40px;
+    }
+    
+    .filters-section h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    
+    .filters {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    
+    .filter-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      align-items: end;
+    }
+    
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .filter-group label {
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #555;
+    }
+    
+    .filter-group select {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      background: white;
+    }
+    
+    .products-section {
+      margin-bottom: 60px;
+    }
+    
+    .loading-products {
+      text-align: center;
+      padding: 40px;
+      grid-column: 1 / -1;
+      color: #666;
+    }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    
+    .product-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    }
+    
+    .product-card a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    
+    .product-card h3 {
+      padding: 15px 15px 5px;
+      margin: 0;
+      font-size: 1.2rem;
+    }
+    
+    .product-card h3 a:hover {
+      color: #007bff;
+    }
+    
+    .brand, .description {
+      padding: 0 15px;
+      margin: 5px 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    .brand {
+      color: #007bff;
+      font-weight: 600;
+    }
+    
+    .price {
+      padding: 0 15px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #28a745;
+      margin: 10px 0;
+    }
+    
+    .rating {
+      padding: 0 15px;
+      color: #ffc107;
+      margin-bottom: 15px;
+    }
+    
+    .add-to-cart {
+      margin: 0 15px 15px;
+      width: calc(100% - 30px);
+    }
+    
+    .features {
+      background: #f8f9fa;
+      padding: 50px 20px;
+      border-radius: 10px;
+      margin-bottom: 40px;
+    }
+    
+    .features h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+    }
+    
+    .feature {
+      text-align: center;
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+    
+    .feature h3 {
+      margin-bottom: 10px;
+      color: #007bff;
+    }
+    
+    .feature p {
+      color: #666;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      padding-bottom: 30px;
+    }
+    
+    .footer-section h3 {
+      margin-bottom: 15px;
+      color: #333;
+    }
+    
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .footer-section ul li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-section ul li a {
+      color: #666;
+      text-decoration: none;
+    }
+    
+    .footer-section ul li a:hover {
+      color: #007bff;
+    }
+    
+    .footer-section p {
+      color: #666;
+      margin: 5px 0;
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid #dee2e6;
+      color: #666;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    
+    .btn.primary {
+      background: #007bff;
+    }
+    
+    .btn.primary:hover {
+      background: #0056b3;
+    }
+    
+    .btn.secondary {
+      background: #6c757d;
+    }
+    
+    .btn.secondary:hover {
+      background: #545b62;
+    }
+    
+    .btn.danger {
+      background: #dc3545;
+    }
+    
+    .btn.danger:hover {
+      background: #c82333;
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+    
+    .muted {
+      color: #6c757d;
+      text-align: center;
+      padding: 40px;
+      font-style: italic;
+    }
+    
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
+    }
+    
+    /* Toast styles */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+    
+    .toast {
+      padding: 15px 20px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      color: white;
+      animation: slideIn 0.3s ease;
+    }
+    
+    .toast.success {
+      background-color: #28a745;
+    }
+    
+    .toast.danger {
+      background-color: #dc3545;
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+  </style>
+</body>
+</html>

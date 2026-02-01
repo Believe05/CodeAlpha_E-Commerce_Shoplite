@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopLite — Cart</title>
+  <link rel="stylesheet" href="styles.css"/>
+  
+  <!-- Correct script loading order -->
+  <script defer src="js/app.js"></script>
+  <script defer src="js/auth.js"></script>
+  <script defer src="js/data.js"></script>
+  <script defer src="js/orders.js"></script>
+</head>
+<body>
+  <header class="header">
+    <a class="logo" href="index.html">ShopLite</a>
+    <nav class="menu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cart.html" id="cartLink">Cart (0)</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="login.html" id="userLink">Sign In</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Your Shopping Cart</h1>
+    
+    <!-- Cart Items Container -->
+    <div id="cartItems" class="cart-items">
+      <!-- Cart items will be dynamically inserted here -->
+      <div class="loading-message">
+        Loading cart items...
+      </div>
+    </div>
+
+    <!-- Cart Summary (only shows when cart has items) -->
+    <div class="cart-summary" id="cartSummary">
+      <div class="summary-row">
+        <span>Subtotal:</span>
+        <span id="cartSubtotal">R0.00</span>
+      </div>
+      <div class="summary-row">
+        <span>Shipping:</span>
+        <span id="shippingCost">R0.00</span>
+      </div>
+      <div class="summary-row total">
+        <span>Total:</span>
+        <span id="cartTotal">R0.00</span>
+      </div>
+      
+      <div class="cart-actions">
+        <button id="clearCartBtn" class="btn danger">Clear Cart</button>
+        <a href="checkout.html" class="btn primary">Proceed to Checkout</a>
+      </div>
+    </div>
+
+    <!-- Empty Cart Message (hidden by default) -->
+    <div id="emptyCart" class="empty-cart-message">
+      <h2>Your cart is empty</h2>
+      <p>Looks like you haven't added any items to your cart yet.</p>
+      <a href="index.html" class="btn primary">Continue Shopping</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 ShopLite. All rights reserved.</p>
+  </footer>
+  
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <style>
+    /* Additional cart-specific styles */
+    .cart-items {
+      margin-bottom: 30px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .cart-item {
+      display: grid;
+      grid-template-columns: 100px 1fr auto;
+      gap: 20px;
+      padding: 20px;
+      border-bottom: 1px solid #e0e0e0;
+      align-items: center;
+    }
+    
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+    
+    .cart-item-image {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    
+    .cart-item-details {
+      flex-grow: 1;
+    }
+    
+    .cart-item-details h4 {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+    }
+    
+    .cart-item-price {
+      color: #007bff;
+      font-weight: bold;
+      margin: 5px 0;
+    }
+    
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    
+    .quantity-controls button {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    
+    .quantity-controls button:hover {
+      background: #f8f9fa;
+    }
+    
+    .quantity-controls span {
+      min-width: 30px;
+      text-align: center;
+      font-weight: bold;
+    }
+    
+    .cart-item-total {
+      text-align: right;
+    }
+    
+    .cart-item-total p {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 0 0 10px 0;
+      color: #28a745;
+    }
+    
+    .btn-sm.danger {
+      padding: 5px 10px;
+      font-size: 14px;
+      background: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .btn-sm.danger:hover {
+      background: #c82333;
+    }
+    
+    .cart-summary {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+    
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #dee2e6;
+    }
+    
+    .summary-row.total {
+      font-size: 20px;
+      font-weight: bold;
+      border-top: 2px solid #333;
+      border-bottom: none;
+      padding-top: 15px;
+      margin-top: 10px;
+    }
+    
+    .cart-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    
+    .empty-cart-message {
+      text-align: center;
+      padding: 60px 20px;
+      display: none;
+    }
+    
+    .empty-cart-message h2 {
+      color: #6c757d;
+      margin-bottom: 15px;
+    }
+    
+    .empty-cart-message p {
+      color: #6c757d;
+      margin-bottom: 25px;
+    }
+    
+    .loading-message {
+      text-align: center;
+      padding: 40px;
+      color: #6c757d;
+      font-style: italic;
+    }
+    
+    /* Toast styles */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+    
+    .toast {
+      padding: 15px 20px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      color: white;
+      animation: slideIn 0.3s ease;
+    }
+    
+    .toast.success {
+      background-color: #28a745;
+    }
+    
+    .toast.danger {
+      background-color: #dc3545;
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</body>
+</html>
