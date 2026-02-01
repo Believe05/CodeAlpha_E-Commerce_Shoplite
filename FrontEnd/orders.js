@@ -1,4 +1,4 @@
-// orders.js - CORRECTED VERSION
+// js/orders.js - CORRECTED VERSION
 const API_BASE = 'http://localhost:5000/api';
 
 // Check if user is logged in
@@ -94,21 +94,28 @@ function renderOrders(orders) {
 }
 
 // Add some CSS for status badges
-const statusStyles = document.createElement('style');
-statusStyles.textContent = `
-  .status {
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: bold;
-  }
-  .status.pending { background: #ffc107; color: #000; }
-  .status.processing { background: #17a2b8; color: #fff; }
-  .status.shipped { background: #007bff; color: #fff; }
-  .status.delivered { background: #28a745; color: #fff; }
-  .status.cancelled { background: #dc3545; color: #fff; }
-`;
-document.head.appendChild(statusStyles);
+if (!document.querySelector('#status-styles')) {
+  const statusStyles = document.createElement('style');
+  statusStyles.id = 'status-styles';
+  statusStyles.textContent = `
+    .status {
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .status.pending { background: #ffc107; color: #000; }
+    .status.processing { background: #17a2b8; color: #fff; }
+    .status.shipped { background: #007bff; color: #fff; }
+    .status.delivered { background: #28a745; color: #fff; }
+    .status.cancelled { background: #dc3545; color: #fff; }
+  `;
+  document.head.appendChild(statusStyles);
+}
+
+// Make functions globally available
+window.loadOrders = loadOrders;
+window.renderOrders = renderOrders;
 
 // Initialize when page loads
 if (document.readyState === 'loading') {

@@ -311,6 +311,7 @@ function renderCart() {
 }
 
 // Render product list - UPDATED VERSION
+// Render product list - UPDATED VERSION
 function renderProducts() {
     const container = $('#products') || $('#productGrid');
     if (!container) return;
@@ -354,19 +355,8 @@ function renderProducts() {
                 <button onclick="retryLoadProducts()" class="btn">Retry</button>
             </div>
         `;
-        
-        // Try to load products after a short delay
-        setTimeout(() => {
-            if (window.PRODUCTS && window.PRODUCTS.length > 0) {
-                renderProducts(); // Try again
-            } else if (typeof loadProducts === 'function') {
-                console.log('Calling loadProducts from data.js');
-                loadProducts();
-            }
-        }, 500);
     }
 }
-
 // Retry loading products
 function retryLoadProducts() {
     console.log('Retrying to load products...');
@@ -967,6 +957,7 @@ function setupFilters() {
 // ======================
 
 // Initialize based on current page
+// Initialize based on current page
 function init() {
     const { user } = checkAuth();
     currentUser = user;
@@ -980,24 +971,23 @@ function init() {
     
     if (path.includes('index.html') || path === '/' || path.includes('/index.html')) {
         // Home page
-        console.log('Initializing home page...');
+        console.log('Initializing home page in app.js...');
         setupFilters();
         
         // Check if products are already loaded
         if (window.PRODUCTS && window.PRODUCTS.length > 0) {
-            console.log('Products already loaded, rendering...');
-            renderProducts();
+            console.log('Products already loaded in app.js, rendering...');
+            setTimeout(() => renderProducts(), 100);
         } else {
-            console.log('Products not loaded yet, will render when loaded...');
-            // Set a timeout to check again
-            setTimeout(() => {
-                if (window.PRODUCTS && window.PRODUCTS.length > 0) {
+            console.log('Products not loaded yet in app.js, will wait for data.js...');
+            // Set a listener for when products are loaded
+            document.addEventListener('productsLoaded', function() {
+                console.log('productsLoaded event received in app.js init');
+                setTimeout(() => {
                     renderProducts();
-                } else {
-                    console.log('Still no products, calling renderProducts to show loading...');
-                    renderProducts();
-                }
-            }, 300);
+                    setupFilters();
+                }, 100);
+            });
         }
         
     } else if (path.includes('cart.html')) {
@@ -1030,7 +1020,7 @@ function init() {
     // Note: orders.html is handled by orders.js
 }
 
-// Add this to your app.js after the init() function:
+
 
 // Listen for products loaded event from data.js
 document.addEventListener('productsLoaded', function() {

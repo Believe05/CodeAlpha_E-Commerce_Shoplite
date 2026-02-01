@@ -7,9 +7,9 @@
   <link rel="stylesheet" href="styles.css"/>
   
   <!-- Correct script loading order -->
+  <script defer src="js/data.js"></script>
   <script defer src="js/app.js"></script>
   <script defer src="js/auth.js"></script>
-  <script defer src="js/data.js"></script>
   <script defer src="js/orders.js"></script>
 </head>
 <body>
@@ -106,78 +106,152 @@
     </section>
 
     <!-- Products Grid -->
-    <section id="featured-products" class="products-section">
-      <h2 class="sr-only">Featured Products</h2>
-      <div id="productGrid" class="grid" role="list">
-        <!-- Products will be loaded dynamically here -->
-        <div class="loading-products">
-          <p>Loading products...</p>
-          
-  {
-    id: "lap-001",
-    name: "ZenBook Pro 15",
-    brand: "ASUS",
-    price: 24999.00,
-    image: "images/asus2.jpg",  // Changed from laptop1.jpg to asus2.jpg
-    short: "Slim powerhouse for devs and creators.",
-    description: "Intel i7, 16GB RAM, 1TB SSD, RTX 4060. Perfect for coding, content creation, and multitasking.",
-    rating: 4.6,
-    stock: 8,
-    category: "Laptop"
-  },
-  {
-    id: "phn-101",
-    name: "Pixel 8 Pro",
-    brand: "Google",
-    price: 19999.00,
-    image: "images/camera1.jpg",  // Changed from phone1.jpg to camera1.jpg
-    short: "Flagship camera and clean Android.",
-    description: "Pro-grade camera, Tensor chip, 120Hz display. Snappy, secure, and built for everyday brilliance.",
-    rating: 4.7,
-    stock: 12,
-    category: "Smartphone"
-  },
-  {
-    id: "hdp-501",
-    name: "QuietComfort Ultra",
-    brand: "Bose",
-    price: 6999.00,
-    image: "images/headphones3.jpg",  // Correct - headphones3.jpg
-    short: "Noise-cancelling comfort for long focus.",
-    description: "Adaptive noise cancellation, spatial audio, 24h battery. Ideal for study, travel, and deep work.",
-    rating: 4.5,
-    stock: 20,
-    category: "Headphones"
-  },
-  {
-    id: "lap-777",
-    name: "MacBook Air M2",
-    brand: "Apple",
-    price: 28999.00,
-    image: "images/Mac4.jpg",  // Changed from laptop2.jpg to Mac4.jpg
-    short: "Effortless performance and battery life.",
-    description: "M2 chip, 8GB RAM, 256GB SSD. Whisper-quiet, lightweight, and reliable for dev workflows.",
-    rating: 4.8,
-    stock: 5,
-    category: "Laptop"
-  },
-  {
-    id: "acc-220",
-    name: "MX Master 3S",
-    brand: "Logitech",
-    price: 1799.00,
-    image: "images/mouse1.jpg",  // This one is correct
-    short: "Ergonomic precision mouse.",
-    description: "Silent clicks, MagSpeed wheel, multi-device. Great for coding and design.",
-    rating: 4.6,
-    stock: 25,
-    category: "Accessory"
-  }
+<section id="featured-products" class="products-section">
+  <h2 class="sr-only">Featured Products</h2>
+  <div id="productGrid" class="grid" role="list">
+    <!-- Products will be loaded dynamically here -->
+    <div class="product-card" data-id="lap-001">
+      <a href="product.html?id=lap-001">
+        <img src="images/laptop1.jpg" 
+             alt="ZenBook Pro 15" 
+             class="product-image"
+             onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
+      </a>
+      <h3><a href="product.html?id=lap-001">ZenBook Pro 15</a></h3>
+      <p class="brand">ASUS</p>
+      <p class="description">Slim powerhouse for devs and creators. Intel i7, 16GB RAM, 1TB SSD, RTX 4060...</p>
+      <div class="price">R24999.00</div>
+      <div class="rating">⭐ 4.6</div>
+      <button onclick="addToCart({
+        id: 'lap-001',
+        name: 'ZenBook Pro 15',
+        brand: 'ASUS',
+        price: 24999.00,
+        image: 'images/laptop1.jpg',
+        short: 'Slim powerhouse for devs and creators.',
+        description: 'Intel i7, 16GB RAM, 1TB SSD, RTX 4060. Perfect for coding, content creation, and multitasking.',
+        rating: 4.6,
+        stock: 8,
+        category: 'Laptop'
+      }, 1)" class="btn primary add-to-cart">
+        Add to Cart
+      </button>
+    </div>
 
-        </div>
-      </div>
-      <p id="emptyState" class="muted hidden">No products match your filters.</p>
-    </section>
+    <div class="product-card" data-id="phn-101">
+      <a href="product.html?id=phn-101">
+        <img src="images/camera1.jpg" 
+             alt="Pixel 8 Pro" 
+             class="product-image"
+             onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
+      </a>
+      <h3><a href="product.html?id=phn-101">Pixel 8 Pro</a></h3>
+      <p class="brand">Google</p>
+      <p class="description">Flagship camera and clean Android. Pro-grade camera, Tensor chip, 120Hz display...</p>
+      <div class="price">R19999.00</div>
+      <div class="rating">⭐ 4.7</div>
+      <button onclick="addToCart({
+        id: 'phn-101',
+        name: 'Pixel 8 Pro',
+        brand: 'Google',
+        price: 19999.00,
+        image: 'images/camera1.jpg',
+        short: 'Flagship camera and clean Android.',
+        description: 'Pro-grade camera, Tensor chip, 120Hz display. Snappy, secure, and built for everyday brilliance.',
+        rating: 4.7,
+        stock: 12,
+        category: 'Smartphone'
+      }, 1)" class="btn primary add-to-cart">
+        Add to Cart
+      </button>
+    </div>
+
+    <div class="product-card" data-id="hdp-501">
+      <a href="product.html?id=hdp-501">
+        <img src="images/headphones1.jpg" 
+             alt="QuietComfort Ultra" 
+             class="product-image"
+             onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
+      </a>
+      <h3><a href="product.html?id=hdp-501">QuietComfort Ultra</a></h3>
+      <p class="brand">Bose</p>
+      <p class="description">Noise-cancelling comfort for long focus. Adaptive noise cancellation, spatial audio...</p>
+      <div class="price">R6999.00</div>
+      <div class="rating">⭐ 4.5</div>
+      <button onclick="addToCart({
+        id: 'hdp-501',
+        name: 'QuietComfort Ultra',
+        brand: 'Bose',
+        price: 6999.00,
+        image: 'images/headphones1.jpg',
+        short: 'Noise-cancelling comfort for long focus.',
+        description: 'Adaptive noise cancellation, spatial audio, 24h battery. Ideal for study, travel, and deep work.',
+        rating: 4.5,
+        stock: 20,
+        category: 'Headphones'
+      }, 1)" class="btn primary add-to-cart">
+        Add to Cart
+      </button>
+    </div>
+
+    <div class="product-card" data-id="lap-777">
+      <a href="product.html?id=lap-777">
+        <img src="images/laptop2.jpg" 
+             alt="MacBook Air M2" 
+             class="product-image"
+             onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
+      </a>
+      <h3><a href="product.html?id=lap-777">MacBook Air M2</a></h3>
+      <p class="brand">Apple</p>
+      <p class="description">Effortless performance and battery life. M2 chip, 8GB RAM, 256GB SSD...</p>
+      <div class="price">R28999.00</div>
+      <div class="rating">⭐ 4.8</div>
+      <button onclick="addToCart({
+        id: 'lap-777',
+        name: 'MacBook Air M2',
+        brand: 'Apple',
+        price: 28999.00,
+        image: 'images/laptop2.jpg',
+        short: 'Effortless performance and battery life.',
+        description: 'M2 chip, 8GB RAM, 256GB SSD. Whisper-quiet, lightweight, and reliable for dev workflows.',
+        rating: 4.8,
+        stock: 5,
+        category: 'Laptop'
+      }, 1)" class="btn primary add-to-cart">
+        Add to Cart
+      </button>
+    </div>
+
+    <div class="product-card" data-id="acc-220">
+      <a href="product.html?id=acc-220">
+        <img src="images/mouse1.jpg" 
+             alt="MX Master 3S" 
+             class="product-image"
+             onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
+      </a>
+      <h3><a href="product.html?id=acc-220">MX Master 3S</a></h3>
+      <p class="brand">Logitech</p>
+      <p class="description">Ergonomic precision mouse. Silent clicks, MagSpeed wheel, multi-device...</p>
+      <div class="price">R1799.00</div>
+      <div class="rating">⭐ 4.6</div>
+      <button onclick="addToCart({
+        id: 'acc-220',
+        name: 'MX Master 3S',
+        brand: 'Logitech',
+        price: 1799.00,
+        image: 'images/mouse1.jpg',
+        short: 'Ergonomic precision mouse.',
+        description: 'Silent clicks, MagSpeed wheel, multi-device. Great for coding and design.',
+        rating: 4.6,
+        stock: 25,
+        category: 'Accessory'
+      }, 1)" class="btn primary add-to-cart">
+        Add to Cart
+      </button>
+    </div>
+  </div>
+  <p id="emptyState" class="muted hidden">No products match your filters.</p>
+</section>
 
     <!-- Why Choose Us -->
     <section class="features">

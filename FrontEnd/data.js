@@ -1,69 +1,8 @@
 // data.js - Product data loading
 const API_BASE = 'http://localhost:5000/api';
 
-// Sample products (IDs must be unique) - WITH CORRECT IMAGE PATHS FROM YOUR FOLDER
-window.PRODUCTS = [
-  {
-    id: "lap-001",
-    name: "ZenBook Pro 15",
-    brand: "ASUS",
-    price: 24999.00,
-    image: "images/asus2.jpg",  // Changed from laptop1.jpg to asus2.jpg
-    short: "Slim powerhouse for devs and creators.",
-    description: "Intel i7, 16GB RAM, 1TB SSD, RTX 4060. Perfect for coding, content creation, and multitasking.",
-    rating: 4.6,
-    stock: 8,
-    category: "Laptop"
-  },
-  {
-    id: "phn-101",
-    name: "Pixel 8 Pro",
-    brand: "Google",
-    price: 19999.00,
-    image: "images/camera1.jpg",  // Changed from phone1.jpg to camera1.jpg
-    short: "Flagship camera and clean Android.",
-    description: "Pro-grade camera, Tensor chip, 120Hz display. Snappy, secure, and built for everyday brilliance.",
-    rating: 4.7,
-    stock: 12,
-    category: "Smartphone"
-  },
-  {
-    id: "hdp-501",
-    name: "QuietComfort Ultra",
-    brand: "Bose",
-    price: 6999.00,
-    image: "images/headphones3.jpg",  // Correct - headphones3.jpg
-    short: "Noise-cancelling comfort for long focus.",
-    description: "Adaptive noise cancellation, spatial audio, 24h battery. Ideal for study, travel, and deep work.",
-    rating: 4.5,
-    stock: 20,
-    category: "Headphones"
-  },
-  {
-    id: "lap-777",
-    name: "MacBook Air M2",
-    brand: "Apple",
-    price: 28999.00,
-    image: "images/Mac4.jpg",  // Changed from laptop2.jpg to Mac4.jpg
-    short: "Effortless performance and battery life.",
-    description: "M2 chip, 8GB RAM, 256GB SSD. Whisper-quiet, lightweight, and reliable for dev workflows.",
-    rating: 4.8,
-    stock: 5,
-    category: "Laptop"
-  },
-  {
-    id: "acc-220",
-    name: "MX Master 3S",
-    brand: "Logitech",
-    price: 1799.00,
-    image: "images/mouse1.jpg",  // This one is correct
-    short: "Ergonomic precision mouse.",
-    description: "Silent clicks, MagSpeed wheel, multi-device. Great for coding and design.",
-    rating: 4.6,
-    stock: 25,
-    category: "Accessory"
-  }
-];
+// Global variable for products
+window.PRODUCTS = [];
 
 // Load products dynamically from backend API
 async function loadProducts() {
@@ -84,70 +23,169 @@ async function loadProducts() {
     }
     
     const result = await res.json();
-    window.PRODUCTS = result.data || result;
-    console.log(`Successfully loaded ${window.PRODUCTS.length} products from backend`);
-    
-    // Dispatch event to notify app.js that products are loaded
-    document.dispatchEvent(new CustomEvent('productsLoaded'));
+    if (result.success) {
+      window.PRODUCTS = result.data || [];
+      console.log(`Successfully loaded ${window.PRODUCTS.length} products from backend`);
+    } else {
+      throw new Error(result.error || 'Failed to load products');
+    }
     
   } catch (err) {
     console.error("Failed to load products from backend:", err);
     
-    // Use pre-defined sample products as fallback
-    console.log("Using fallback sample products");
-    // window.PRODUCTS is already defined above with correct paths
-    
-    // Dispatch event even with fallback products
-    document.dispatchEvent(new CustomEvent('productsLoaded'));
+    // Use fallback products
+    window.PRODUCTS = getFallbackProducts();
+    console.log("Using fallback products:", window.PRODUCTS.length);
   }
   
-  // Call appropriate render function based on current page
-  renderCurrentPage();
-  
-  // Update category and brand filters
-  updateFilters();
+  // Dispatch event that products are loaded
+  document.dispatchEvent(new Event('productsLoaded'));
   
   return window.PRODUCTS;
 }
 
-// Function to render the current page based on URL
-function renderCurrentPage() {
-  const path = window.location.pathname;
-  console.log("Current page path:", path);
+// Fallback products in case API fails
+function getFallbackProducts() {
+  return [
+    {
+      id: "lap-001",
+      name: "ZenBook Pro 15",
+      brand: "ASUS",
+      price: 24999.00,
+      image: "images/laptop1.jpg",
+      short: "Slim powerhouse for devs and creators.",
+      description: "Intel i7, 16GB RAM, 1TB SSD, RTX 4060. Perfect for coding, content creation, and multitasking.",
+      rating: 4.6,
+      stock: 8,
+      category: "Laptop"
+    },
+    {
+      id: "phn-101",
+      name: "Pixel 8 Pro",
+      brand: "Google",
+      price: 19999.00,
+      image: "images/camera1.jpg",
+      short: "Flagship camera and clean Android.",
+      description: "Pro-grade camera, Tensor chip, 120Hz display. Snappy, secure, and built for everyday brilliance.",
+      rating: 4.7,
+      stock: 12,
+      category: "Smartphone"
+    },
+    {
+      id: "hdp-501",
+      name: "QuietComfort Ultra",
+      brand: "Bose",
+      price: 6999.00,
+      image: "images/headphones1.jpg",
+      short: "Noise-cancelling comfort for long focus.",
+      description: "Adaptive noise cancellation, spatial audio, 24h battery. Ideal for study, travel, and deep work.",
+      rating: 4.5,
+      stock: 20,
+      category: "Headphones"
+    },
+    {
+      id: "lap-777",
+      name: "MacBook Air M2",
+      brand: "Apple",
+      price: 28999.00,
+      image: "images/laptop2.jpg",
+      short: "Effortless performance and battery life.",
+      description: "M2 chip, 8GB RAM, 256GB SSD. Whisper-quiet, lightweight, and reliable for dev workflows.",
+      rating: 4.8,
+      stock: 5,
+      category: "Laptop"
+    },
+    {
+      id: "acc-220",
+      name: "MX Master 3S",
+      brand: "Logitech",
+      price: 1799.00,
+      image: "images/mouse1.jpg",
+      short: "Ergonomic precision mouse.",
+      description: "Silent clicks, MagSpeed wheel, multi-device. Great for coding and design.",
+      rating: 4.6,
+      stock: 25,
+      category: "Accessory"
+    }
+  ];
+}
+
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOM loaded, initializing...');
   
-  if (path.includes("cart.html")) {
-    console.log("Detected cart page");
-    if (typeof renderCart === 'function') {
-      renderCart();
-    } else {
-      console.error("renderCart function not found!");
+  // First, load products
+  loadProducts().then(products => {
+    console.log('Products loaded:', products.length);
+    
+    // Then update filters and render if on home page
+    if (window.location.pathname.includes('index.html') || 
+        window.location.pathname === '/' || 
+        window.location.pathname.endsWith('/')) {
+      
+      updateFilters();
+      
+      // Check if renderProducts function exists and call it
+      if (typeof renderProducts === 'function') {
+        console.log('Calling renderProducts...');
+        setTimeout(() => renderProducts(), 100);
+      } else {
+        console.error('renderProducts function not found!');
+        // Try to render directly
+        renderProductsDirectly();
+      }
     }
-  } else if (path.includes("checkout.html")) {
-    console.log("Detected checkout page");
-    if (typeof setupCheckout === 'function') {
-      setupCheckout();
-    }
-  } else if (path.includes("product.html")) {
-    console.log("Detected product page");
-    if (typeof renderProductDetail === 'function') {
-      renderProductDetail();
-    }
-  } else if (path.includes("index.html") || path === "/") {
-    console.log("Detected home page");
-    if (typeof renderProducts === 'function') {
-      renderProducts();
-    }
-    if (typeof setupFilters === 'function') {
-      setTimeout(() => setupFilters(), 100);
-    }
+  }).catch(error => {
+    console.error('Failed to load products:', error);
+  });
+});
+
+// Direct rendering function as fallback
+function renderProductsDirectly() {
+  const container = document.getElementById('productGrid');
+  if (!container || !window.PRODUCTS || window.PRODUCTS.length === 0) {
+    console.log('No container or products found');
+    return;
+  }
+  
+  console.log('Direct rendering of products:', window.PRODUCTS.length);
+  
+  container.innerHTML = window.PRODUCTS.map(product => `
+    <div class="product-card" data-id="${product._id || product.id}">
+      <a href="product.html?id=${product._id || product.id}">
+        <img src="${product.image || 'https://via.placeholder.com/300x200?text=No+Image'}" 
+             alt="${product.name}" 
+             class="product-image"
+             onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
+      </a>
+      <h3><a href="product.html?id=${product._id || product.id}">${product.name}</a></h3>
+      <p class="brand">${product.brand || 'Unknown Brand'}</p>
+      <p class="description">${product.short || (product.description ? product.description.substring(0, 80) : 'No description')}...</p>
+      <div class="price">R${product.price ? product.price.toFixed(2) : '0.00'}</div>
+      <div class="rating">⭐ ${product.rating || 4.0}</div>
+      <button onclick="addToCart(${JSON.stringify(product).replace(/"/g, '&quot;')}, 1)" 
+              class="btn primary add-to-cart">
+        Add to Cart
+      </button>
+    </div>
+  `).join('');
+  
+  // Hide loading message
+  const loadingElement = document.querySelector('.loading-products');
+  if (loadingElement) {
+    loadingElement.style.display = 'none';
   }
 }
 
 function updateFilters() {
+  console.log('Updating filters with products:', window.PRODUCTS?.length);
+  
   // Update category dropdown
   const categorySelect = document.getElementById("categorySelect");
-  if (categorySelect && window.PRODUCTS) {
+  if (categorySelect && window.PRODUCTS && window.PRODUCTS.length > 0) {
     const categories = [...new Set(window.PRODUCTS.map(p => p.category).filter(Boolean))];
+    console.log('Available categories:', categories);
+    
     categorySelect.innerHTML = '<option value="">All Categories</option>' + 
       categories.map(cat => `<option value="${cat}">${cat}</option>`).join("");
     
@@ -156,16 +194,16 @@ function updateFilters() {
     const categoryParam = urlParams.get('category');
     if (categoryParam && categories.includes(categoryParam)) {
       categorySelect.value = categoryParam;
-      if (typeof applyFilters === 'function') {
-        setTimeout(() => applyFilters(), 100);
-      }
+      console.log('Applied category filter from URL:', categoryParam);
     }
   }
   
   // Update brand dropdown
   const brandSelect = document.getElementById("brandSelect");
-  if (brandSelect && window.PRODUCTS) {
+  if (brandSelect && window.PRODUCTS && window.PRODUCTS.length > 0) {
     const brands = [...new Set(window.PRODUCTS.map(p => p.brand).filter(Boolean))];
+    console.log('Available brands:', brands);
+    
     brandSelect.innerHTML = '<option value="">All Brands</option>' + 
       brands.map(brand => `<option value="${brand}">${brand}</option>`).join("");
   }
@@ -177,16 +215,26 @@ function addImageFallback() {
     if (e.target.tagName === 'IMG') {
       console.error(`Image failed to load: ${e.target.src}`);
       e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
-      e.target.onerror = null; // Prevent infinite loop
+      e.target.onerror = null;
     }
   }, true);
 }
 
-// Make loadProducts available globally for debugging
+// Make functions globally available
 window.loadProducts = loadProducts;
+window.updateFilters = updateFilters;
+window.renderProductsDirectly = renderProductsDirectly;
+window.getFallbackProducts = getFallbackProducts;
+window.retryLoadProducts = function() {
+  console.log('Retrying to load products...');
+  loadProducts().then(() => {
+    if (typeof renderProducts === 'function') {
+      renderProducts();
+    } else {
+      renderProductsDirectly();
+    }
+  });
+};
 
-// Run when page loads
-document.addEventListener("DOMContentLoaded", function() {
-  addImageFallback();
-  loadProducts();
-});
+// Initialize image fallback
+addImageFallback();

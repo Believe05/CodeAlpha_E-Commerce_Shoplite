@@ -7,10 +7,9 @@
   <link rel="stylesheet" href="styles.css"/>
   
   <!-- Correct script loading order -->
+  <script defer src="js/data.js"></script>
   <script defer src="js/app.js"></script>
   <script defer src="js/auth.js"></script>
-  <script defer src="js/data.js"></script>
-  <script defer src="js/orders.js"></script>
 </head>
 <body>
   <!-- Menu bar -->
@@ -28,103 +27,27 @@
 
   <!-- Product detail -->
   <main class="container">
-    <!-- In product.html, update the product-detail section to show an actual product -->
-<div id="productDetail" class="product-detail">
-  <div class="product-image-container">
-    <img id="productMainImage" src="images/Mac4.jpg" 
-         alt="MacBook Air M2"
-         class="product-main-image"
-         onerror="this.onerror=null; this.src='https://via.placeholder.com/500x400?text=Image+Not+Found'">
-  </div>
-  <div class="product-info">
-    <h1 id="productName">MacBook Air M2</h1>
-    <div id="productBrand" class="product-brand">Apple</div>
-    <div id="productPrice" class="product-price">R28,999.00</div>
-    <div class="product-rating">
-      <span id="productStars" class="stars">⭐⭐⭐⭐⭐</span>
-      <span id="productRating" class="rating-value">4.8/5.0</span>
+    <div id="loadingProduct" class="loading-product">
+      <p>Loading product details...</p>
     </div>
-    <div class="product-description">
-      <p id="productDescription">M2 chip, 8GB RAM, 256GB SSD. Whisper-quiet, lightweight, and reliable for dev workflows.</p>
+    
+    <div id="notFound" class="not-found hidden">
+      <h2>Product Not Found</h2>
+      <p>Sorry, the product you're looking for doesn't exist.</p>
+      <a href="index.html" class="btn primary">Back to Products</a>
     </div>
-    <div class="product-specs">
-      <div class="spec-item">
-        <span class="spec-label">Category:</span>
-        <span id="productCategory" class="spec-value">Laptop</span>
-      </div>
-      <div class="spec-item">
-        <span class="spec-label">Availability:</span>
-        <span id="productStock" class="spec-value" style="color:#28a745;">In Stock (5 available)</span>
-      </div>
-      <div class="spec-item">
-        <span class="spec-label">Brand:</span>
-        <span id="productBrandDetail" class="spec-value">Apple</span>
-      </div>
-      <div class="spec-item">
-        <span class="spec-label">Product ID:</span>
-        <span id="productId" class="spec-value">lap-777</span>
-      </div>
+    
+    <div id="productDetail" class="product-detail">
+      <!-- Product details will be dynamically inserted here -->
     </div>
-    <div class="product-actions">
-      <div class="quantity-selector">
-        <button class="quantity-btn" onclick="updateProductQuantity(-1)">-</button>
-        <input type="number" id="productQuantity" class="quantity-input" value="1" min="1" max="5">
-        <button class="quantity-btn" onclick="updateProductQuantity(1)">+</button>
-      </div>
-      <button id="addToCartBtn" class="btn primary btn-large" onclick="addProductToCart()">
-        Add to Cart
-      </button>
-    </div>
-  </div>
-</div>
     
     <!-- Related Products Section -->
-<section id="relatedProducts" class="related-products">
-  <h2>You Might Also Like</h2>
-  <div id="relatedProductsGrid" class="related-grid">
-    <!-- Show actual related products immediately -->
-    <a href="product.html?id=lap-001" class="related-product-card">
-      <img src="images/asus2.jpg" 
-           alt="ASUS ZenBook Pro 15"
-           class="related-product-image"
-           onerror="this.onerror=null; this.src='https://via.placeholder.com/250x180?text=Image+Not+Found'">
-      <div class="related-product-info">
-        <h3 class="related-product-name">ASUS ZenBook Pro 15</h3>
-        <div class="related-product-price">R24,999.00</div>
+    <section id="relatedProducts" class="related-products hidden">
+      <h2>You Might Also Like</h2>
+      <div id="relatedProductsGrid" class="related-grid">
+        <!-- Related products will be dynamically inserted here -->
       </div>
-    </a>
-    <a href="product.html?id=hdp-501" class="related-product-card">
-      <img src="images/headphones3.jpg" 
-           alt="Bose QuietComfort Ultra"
-           class="related-product-image"
-           onerror="this.onerror=null; this.src='https://via.placeholder.com/250x180?text=Image+Not+Found'">
-      <div class="related-product-info">
-        <h3 class="related-product-name">Bose QuietComfort Ultra</h3>
-        <div class="related-product-price">R6,999.00</div>
-      </div>
-    </a>
-    <a href="product.html?id=phn-101" class="related-product-card">
-      <img src="images/camera1.jpg" 
-           alt="Google Pixel 8 Pro"
-           class="related-product-image"
-           onerror="this.onerror=null; this.src='https://via.placeholder.com/250x180?text=Image+Not+Found'">
-      <div class="related-product-info">
-        <h3 class="related-product-name">Google Pixel 8 Pro</h3>
-        <div class="related-product-price">R19,999.00</div>
-      </div>
-    </a>
-    <a href="product.html?id=acc-220" class="related-product-card">
-      <img src="images/mouse1.jpg" 
-           alt="Logitech MX Master 3S"
-           class="related-product-image"
-           onerror="this.onerror=null; this.src='https://via.placeholder.com/250x180?text=Image+Not+Found'">
-      <div class="related-product-info">
-        <h3 class="related-product-name">Logitech MX Master 3S</h3>
-        <div class="related-product-price">R1,799.00</div>
-      </div>
-    </a>
-  </div>
-</section>
+    </section>
   </main>
 
   <footer class="footer">
@@ -289,7 +212,6 @@
     .loading-product {
       text-align: center;
       padding: 60px;
-      grid-column: 1 / -1;
       color: #666;
       font-style: italic;
     }

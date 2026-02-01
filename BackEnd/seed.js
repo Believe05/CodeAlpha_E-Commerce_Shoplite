@@ -10,7 +10,7 @@ const products = [
     name: "ZenBook Pro 15",
     brand: "ASUS",
     price: 24999.00,
-    image: "images/Mac4.jpg",
+    image: "images/laptop1.jpg",
     short: "Slim powerhouse for devs and creators.",
     description: "Intel i7, 16GB RAM, 1TB SSD, RTX 4060. Perfect for coding, content creation, and multitasking.",
     rating: 4.6,
