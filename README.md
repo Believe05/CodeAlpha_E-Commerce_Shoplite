@@ -1,9 +1,9 @@
-ShopLite E-commerce Platform
-📋 Overview
+# ShopLite E-commerce Platform
+
+### 📋 Overview
 ShopLite is a full-stack e-commerce application built with a modern JavaScript stack, featuring a responsive frontend and a RESTful backend API. The platform allows users to browse products, manage a shopping cart, place orders, and track their purchases.
 
---
-🏗️ Tech Stack
+### 🏗️ Tech Stack
 Frontend
 HTML5/CSS3 - Responsive design with custom styling
 
@@ -24,7 +24,7 @@ JWT - Authentication and authorization
 
 bcryptjs - Password hashing
 
-Key Features
+### Key Features
 . User authentication (register/login with JWT)
 . Product catalog with filtering and sorting
 . Shopping cart with local storage persistence
@@ -33,7 +33,7 @@ Key Features
 . Responsive design for all devices
 . Toast notifications for user feedback
 
-📁 Project Structure
+## 📁 Project Structure
 text
 shoplite/
 ├── frontend/
@@ -65,7 +65,8 @@ shoplite/
 │       └── authRoutes.js    # Authentication endpoints
 │
 └── images/                # Product images
-🚀 Getting Started
+
+### 🚀 Getting Started
 Prerequisites
 Node.js (v14 or higher)
 
@@ -76,13 +77,13 @@ npm or yarn
 Installation Steps
 Clone the repository
 
-bash
+## bash
 git clone <repository-url>
 cd shoplite
 Set up environment variables
 Create a .env file in the backend directory:
 
-env
+## env
 MONGODB_URI=mongodb://localhost:27017/shoplite
 JWT_SECRET=your-super-secret-Install backend dependencies
 
@@ -117,7 +118,7 @@ Backend API: http://localhost:5000/api
 
 API Health Check: http://localhost:5000/api/health
 
-🔧 API Endpoints
+## 🔧 API Endpoints
 Authentication
 POST /api/auth/register - Register new user
 
@@ -125,7 +126,7 @@ POST /api/auth/login - User login
 
 GET /api/auth/me - Get user profile (protected)
 
-Products
+## Products
 GET /api/products - Get all products (with filtering)
 
 GET /api/products/:id - Get single product
@@ -138,7 +139,7 @@ PUT /api/products/:id - Update product (admin)
 
 DELETE /api/products/:id - Delete product (admin)
 
-Orders
+## Orders
 POST /api/orders - Create new order (protected)
 
 GET /api/orders - Get user's orders (protected)
@@ -147,7 +148,7 @@ GET /api/orders/:id - Get specific order (protected)
 
 GET /api/orders/stats/summary - Get order statistics (protected)
 
-🛒 Features in Detail
+## 🛒 Features in Detail
 Shopping Cart
 Add/remove products from cart
 
@@ -186,7 +187,7 @@ Order confirmation
 
 Order summary email (placeholder)
 
-📱 Responsive Design
+## 📱 Responsive Design
 Mobile-first approach
 
 Adaptive layouts for all screen sizes
@@ -195,7 +196,7 @@ Touch-friendly buttons and controls
 
 Accessible navigation
 
-🧪 Testing
+## 🧪 Testing
 The application can be tested with:
 
 Test User Credentials (after seeding):
@@ -210,7 +211,7 @@ Use Postman or curl to test endpoints
 
 Check http://localhost:5000/api/test for connectivity
 
-🔒 Security Features
+## 🔒 Security Features
 Password hashing with bcrypt
 
 JWT token authentication
@@ -223,7 +224,7 @@ Rate limiting on API endpoints
 
 Helmet.js for security headers
 
-🐛 Troubleshooting
+## 🐛 Troubleshooting
 Common Issues
 MongoDB Connection Failed
 
@@ -266,10 +267,10 @@ Check network tab for API request failures
 
 Verify localStorage contains user token after login
 
-📄 License
+## 📄 License
 This project is for educational purposes.
 
-👥 Contributing
+## 👥 Contributing
 Fork the repository
 
 Create a feature branch
@@ -280,14 +281,14 @@ Push to the branch
 
 Open a Pull Request
 
-🙏 Acknowledgments
+## 🙏 Acknowledgments
 Product images from various sources
 
 Icons from emoji library
 
 Inspired by modern e-commerce platforms
 
-📞 Support
+## 📞 Support
 For issues or questions:
 
 Check the Troubleshooting section
@@ -296,7 +297,7 @@ Review the code comments
 
 Create an issue in the repository
 
-Happy Shopping with ShopLite! 🛍️
+### Happy Shopping with ShopLite! 🛍️
 
 jwt-key-here
 PORT=5000
